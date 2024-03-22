@@ -39,14 +39,17 @@ export default function App() {
     }
 
     return (
-      <View style={styles.container}>
-        <Camera style={styles.camera} type={tipo}>
-          <View style={styles.botaoContainer}>
-            <TouchableOpacity style={styles.botao} onPress={alternarTipoCamera}>
-              <Text style={styles.textoBotao}>Inverter Câmera</Text>
+      <View style={estilos.container}>
+        <Camera style={estilos.camera} type={tipo}>
+          <View style={estilos.botaoContainer}>
+            <TouchableOpacity
+              style={estilos.botao}
+              onPress={alternarTipoCamera}
+            >
+              <Text style={estilos.textoBotao}>Inverter Câmera</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.botao} onPress={fecharCamera}>
-              <Text style={styles.textoBotao}>Voltar</Text>
+            <TouchableOpacity style={estilos.botao} onPress={fecharCamera}>
+              <Text style={estilos.textoBotao}>Voltar</Text>
             </TouchableOpacity>
           </View>
         </Camera>
@@ -55,20 +58,20 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.introContainer}>
-        <Text style={styles.introTexto}>
+    <View style={estilos.container}>
+      <View style={estilos.introContainer}>
+        <Text style={estilos.introTexto}>
           Bem-vindo ao aplicativo de câmera!
         </Text>
-        <TouchableOpacity style={styles.introBotao} onPress={abrirCamera}>
-          <Image source={require("./camera.png")} style={styles.imagemBotao} />
+        <TouchableOpacity style={estilos.introBotao} onPress={abrirCamera}>
+          <Image source={require("./camera.png")} style={estilos.imagemBotao} />
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
