@@ -3,43 +3,50 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { Camera } from "expo-camera";
 
 export default function App() {
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [showCamera, setShowCamera] = useState(false);
+  const [tipo, setTipo] = useState(Camera.Constants.Type.back);
+  const [temPermissao, setTemPermissao] = useState(null);
+  const [exibirCamera, setExibirCamera] = useState(false);
 
-  const requestCameraPermission = async () => {
+  const solicitarPermissaoCamera = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
-    setHasPermission(status === "granted");
+    setTemPermissao(status === "granted");
   };
 
-  const toggleCameraType = () => {
-    setType(
-      type === Camera.Constants.Type.back
+  const alternarTipoCamera = () => {
+    setTipo(
+      tipo === Camera.Constants.Type.back
         ? Camera.Constants.Type.front
         : Camera.Constants.Type.back
     );
   };
 
-  const openCamera = () => {
-    setShowCamera(true);
-    requestCameraPermission();
+  const abrirCamera = () => {
+    setExibirCamera(true);
+    solicitarPermissaoCamera();
   };
 
-  if (showCamera) {
-    if (hasPermission === null) {
+  const fecharCamera = () => {
+    setExibirCamera(false);
+  };
+
+  if (exibirCamera) {
+    if (temPermissao === null) {
       return <View />;
     }
 
-    if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
+    if (temPermissao === false) {
+      return <Text>Sem acesso à câmera</Text>;
     }
 
     return (
       <View style={styles.container}>
-        <Camera style={styles.camera} type={type}>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-              <Text style={styles.text}>Inverter Camera</Text>
+        <Camera style={styles.camera} type={tipo}>
+          <View style={styles.botaoContainer}>
+            <TouchableOpacity style={styles.botao} onPress={alternarTipoCamera}>
+              <Text style={styles.textoBotao}>Inverter Câmera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.botao} onPress={fecharCamera}>
+              <Text style={styles.textoBotao}>Voltar</Text>
             </TouchableOpacity>
           </View>
         </Camera>
@@ -50,15 +57,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.introContainer}>
-        <Text style={styles.introText}>
+        <Text style={styles.introTexto}>
           Bem-vindo ao meu aplicativo de câmera!
         </Text>
-        <TouchableOpacity style={styles.introButton} onPress={openCamera}>
-          <Image
-            resizeMode="cover"
-            source={require("./camera.png")}
-            style={styles.buttonImage}
-          />
+        <TouchableOpacity style={styles.introBotao} onPress={abrirCamera}>
+          <Image source={require("./camera.png")} style={styles.imagemBotao} />
         </TouchableOpacity>
       </View>
     </View>
@@ -75,16 +78,16 @@ const styles = StyleSheet.create({
   introContainer: {
     alignItems: "center",
   },
-  introText: {
+  introTexto: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
   },
-  introButton: {
+  introBotao: {
     marginBottom: 40,
   },
-  buttonImage: {
+  imagemBotao: {
     width: 130,
     height: 85,
   },
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
-  buttonContainer: {
+  botaoContainer: {
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: "transparent",
@@ -100,13 +103,13 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: "100%",
   },
-  button: {
+  botao: {
     backgroundColor: "rgba(0, 0, 0, 0.8)",
     padding: 10,
     borderRadius: 5,
     marginHorizontal: 20,
   },
-  text: {
+  textoBotao: {
     fontSize: 16,
     color: "#f3b453",
   },
