@@ -58,7 +58,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.introContainer}>
         <Text style={styles.introTexto}>
-          Bem-vindo ao meu aplicativo de câmera!
+          Bem-vindo ao aplicativo de câmera!
         </Text>
         <TouchableOpacity style={styles.introBotao} onPress={abrirCamera}>
           <Image source={require("./camera.png")} style={styles.imagemBotao} />
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   introBotao: {
-    marginBottom: 40,
+    marginBottom: 30,
   },
   imagemBotao: {
     width: 130,
